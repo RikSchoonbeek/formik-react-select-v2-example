@@ -3,31 +3,37 @@ import * as Yup from "yup";
 import MySelect from "./MySelect";
 import { withFormik } from "formik";
 
-const MyForm = props => {
-  const {
-    values,
-    touched,
-    errors,
-    handleSubmit,
-    selectOptions,
-    setFieldValue,
-    setFieldTouched
-  } = props;
-  return (
-    <form onSubmit={handleSubmit}>
-      <MySelect
-        error={errors.topics}
-        name="topics"
-        onBlur={setFieldTouched}
-        onChange={setFieldValue}
-        options={selectOptions}
-        touched={touched.topics}
-        value={values.topics}
-      />
-      <button type="submit">Submit</button>
-    </form>
-  );
-};
+class MyForm extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const {
+      values,
+      touched,
+      errors,
+      handleSubmit,
+      selectOptions,
+      setFieldValue,
+      setFieldTouched
+    } = this.props;
+    return (
+      <form onSubmit={handleSubmit}>
+        <MySelect
+          error={errors.topics}
+          name="topics"
+          onBlur={setFieldTouched}
+          onChange={setFieldValue}
+          options={selectOptions}
+          touched={touched.topics}
+          value={values.topics}
+        />
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
+}
 
 const formikEnhancer = withFormik({
   validationSchema: Yup.object().shape({
