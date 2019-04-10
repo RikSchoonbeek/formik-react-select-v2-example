@@ -8,6 +8,15 @@ class MyForm extends React.Component {
     super(props);
   }
 
+  getSelectValue = () => {
+    // const { values: formikValues, newTags } = this.props;
+    // const combinedValues = [newTags, ...formikValues.topics];
+    // return combinedValues;
+
+    const { values: formikValues } = this.props;
+    return formikValues.topics;
+  };
+
   render() {
     const {
       values,
@@ -27,7 +36,7 @@ class MyForm extends React.Component {
           onChange={setFieldValue}
           options={selectOptions}
           touched={touched.topics}
-          value={values.topics}
+          value={this.getSelectValue()}
         />
         <button type="submit">Submit</button>
       </form>

@@ -3,6 +3,7 @@ import MyForm from "./components/MyForm";
 
 class App extends Component {
   state = {
+    newTags: [],
     selectOptions: [
       { value: "Food", label: "Food" },
       { value: "Being Fabulous", label: "Being Fabulous" },
@@ -13,23 +14,27 @@ class App extends Component {
     ]
   };
 
+  serveSelectOptions = () => {
+    const { newTags, selectOptions } = this.state;
+    return [...newTags, ...selectOptions];
+  };
+
   handleAddTag = () => {
     const id = Math.floor(Math.random() * 99999);
     const newTag = { value: id, label: `New tag #${id}` };
-    this.handleAddToSelectOptions(newTag);
+    this.addNewTagToState(newTag);
   };
 
-  handleAddToSelectOptions = newTag => {
-    const { selectOptions } = this.state;
-    const newSelectOptions = [newTag, ...selectOptions];
-    this.setState({ selectOptions: newSelectOptions });
+  addNewTagToState = newTag => {
+    const { newTags } = this.state;
+    this.setState({ newTags: [newTag, ...newTags] });
   };
 
   render() {
-    const { selectOptions } = this.state;
+    const { newTags } = this.state;
     return (
       <div>
-        <MyForm selectOptions={selectOptions} />
+        <MyForm selectOptions={this.serveSelectOptions()} newTags={newTags} />
 
         {/* // This button adds a new tag. It will
         add a new tag to the selectOptions, but it will
